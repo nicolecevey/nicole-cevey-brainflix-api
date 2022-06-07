@@ -1,14 +1,20 @@
 const express = require("express");
-const app = express();
 const cors = require("cors");
+const videos = require("./routes/videos");
+
+const app = express();
+
 app.use(cors());
 
-app.get("/", (req, res) => {
-    res
-        .status(200)
-        .send("Welcome to homepage")
-});
+app
+	.get("/", (req, res) => {
+	res
+		.status(200)
+		.send("WELCOME");
+})
 
-app.listen(8080, () => {
-    console.log("Server listening on http://localhost: 8080")
+app.use('/', videos);
+
+app.listen(8085, () => {
+    console.log("Server listening on http://localhost: 8085")
 });
