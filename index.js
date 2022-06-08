@@ -1,10 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const videos = require("./routes/videos");
 
+const videos = require("./routes/videos");
 const app = express();
 
 app.use(cors());
+
+app.use(express.static("./public/images"));
 
 app
 	.get("/", (req, res) => {
