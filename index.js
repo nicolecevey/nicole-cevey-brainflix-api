@@ -4,12 +4,14 @@ const cors = require("cors");
 const videos = require("./routes/videos");
 const app = express();
 
-app.use(cors());
+require("dotenv").config();
+const { PORT, BACKEND_URL } = process.env;
 
+app.use(cors());
 app.use(express.static("./public/images"));
 
 app
-	.get("/", (req, res) => {
+	.get("/", (_req, res) => {
 	res
 		.status(200)
 		.send("WELCOME");
@@ -17,6 +19,6 @@ app
 
 app.use('/', videos);
 
-app.listen(8085, () => {
-    console.log("Server listening on http://localhost: 8085")
+app.listen(PORT, () => {
+    console.log(`Server listening on ${BACKEND_URL}: ${PORT}`)
 });

@@ -1,9 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const fs = require('fs');
-
 const { v4: uuid} = require("uuid");
 const bodyParser = require("body-parser")
+
+require("dotenv").config();
+const { PORT, BACKEND_URL } = process.env;
 
 const videosFilePath = "./data/videos.json";
 
@@ -13,9 +15,18 @@ const getVideos = () => {
     return JSON.parse(fs.readFileSync(videosFilePath));
 }
 
-router.get('/videos', (req, res) => {
-        let videoDetails = getVideos();
-        res.send(videoDetails)
+router.get('/videos', (_req, res) => {
+    let videoDetails = getVideos();
+    const videos = videoDetails.map((video) => {
+        const videoDetailsCondensed = {
+            title: video.title,
+            channel: video.channel,
+            image: video.image,
+            id: video.id
+        }
+        return videoDetailsCondensed;
+    })
+    res.send(videos);
 });
 
 router.post('/videos', (req, res) => {
@@ -24,12 +35,12 @@ router.post('/videos', (req, res) => {
     const video = {
         title: title,
         channel: "Oliver's Adventures",
-        image: "http://localhost:8085/Upload-video-preview.jpg",
+        image: `${BACKEND_URL}:${PORT}/Upload-video-preview.jpg`,
         description: description,
         views: "0",
         likes: "0",
         duration: "10:14",
-        video: "https://project-2-api.herokuapp.com/stream",
+        video: `${BACKEND_URL}:${PORT}/Upload-video-preview.jpg`,
         timestamp: Date.now(),
         comments: [],
         id: uuid()
