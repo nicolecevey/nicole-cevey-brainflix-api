@@ -5,7 +5,7 @@ const videos = require("./routes/videos");
 const app = express();
 
 require("dotenv").config();
-const { PORT, BACKEND_URL } = process.env;
+const { BACKEND_URL } = process.env;
 
 app.use(cors());
 app.use(express.static("./public/images"));
@@ -16,6 +16,6 @@ app.get("/", (_req, res) => {
 
 app.use("/", videos);
 
-app.listen(PORT, () => {
-  console.log(`Server listening on ${BACKEND_URL}: ${PORT}`);
+app.listen(() => {
+  console.log(`Server listening on ${BACKEND_URL}`);
 });
