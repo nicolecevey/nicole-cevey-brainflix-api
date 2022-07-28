@@ -5,7 +5,7 @@ const { v4: uuid } = require("uuid");
 const bodyParser = require("body-parser");
 
 require("dotenv").config();
-const { PORT, BACKEND_URL } = process.env;
+const { PORT } = process.env;
 
 const videosFilePath = "./data/videos.json";
 
@@ -35,12 +35,12 @@ router.post("/videos", (req, res) => {
   const video = {
     title: title,
     channel: "Oliver's Adventures",
-    image: `${BACKEND_URL}:${PORT}/Upload-video-preview.jpg`,
+    image: `${PORT}/Upload-video-preview.jpg`,
     description: description,
     views: "0",
     likes: "0",
     duration: "10:14",
-    video: `${BACKEND_URL}:${PORT}/Upload-video-preview.jpg`,
+    video: `${PORT}/Upload-video-preview.jpg`,
     timestamp: Date.now(),
     comments: [],
     id: uuid(),
