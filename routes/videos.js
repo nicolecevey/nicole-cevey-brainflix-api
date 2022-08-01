@@ -84,4 +84,30 @@ router.post("/videos/:id/comments", (req, res) => {
   fs.writeFileSync("./data/videos.json", JSON.stringify(videoDetails));
 });
 
+router.delete("/videos/:id/comments/:commentId", (req, res) => {
+  const videoId = req.params.id;
+  const commentId = req.params.commentId;
+  let videoDetails = getVideos();
+
+  const selectedVideo = videoDetails
+    .filter((video) => {
+      return video.id === videoId;
+    })
+    .pop();
+  const commentIndex = selectedVideo.comments.findIndex((comment) => {
+    return comment.id === commentId;
+  });
+
+  selectedVideo.comments.splice(commentIndex, 1);
+  videoDetails.map((video) => {
+    if (video.id === videoId) {
+      video = selectedVideo;
+    }
+    return videoDetails;
+  });
+
+  fs.writeFileSync("./data/videos.json", JSON.stringify(videoDetails));
+  return res.status(200).send(selectedVideo.comments.splice(commentIndex, 1));
+});
+
 module.exports = router;
