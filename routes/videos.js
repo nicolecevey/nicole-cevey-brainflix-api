@@ -63,4 +63,25 @@ router.get("/videos/:id", (req, res) => {
   return res.send(foundVideo);
 });
 
+router.post("/videos/:id/comments", (req, res) => {
+  let videoDetails = getVideos();
+  const videoId = req.params.id;
+  const newComment = {
+    id: uuid(),
+    name: req.body.name,
+    comment: req.body.comment,
+    likes: 0,
+    timestamp: Date.now(),
+  };
+  const selectedVideo = videoDetails.find((video) => video.id === videoId);
+  if (selectedVideo) {
+    selectedVideo.comments = [newComment, ...selectedVideo.comments];
+    res.status(200).send(newComment);
+  } else {
+    res.status(404).json({ message: "Video not found" });
+  }
+
+  fs.writeFileSync("./data/videos.json", JSON.stringify(videoDetails));
+});
+
 module.exports = router;
