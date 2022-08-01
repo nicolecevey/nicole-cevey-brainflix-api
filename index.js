@@ -4,7 +4,8 @@ const cors = require("cors");
 require("dotenv").config();
 
 const videos = require("./routes/videos");
-// const comments = require("./routes/comments");
+const comments = require("./routes/comments");
+const likes = require("./routes/likes");
 
 const { PORT } = process.env;
 
@@ -17,7 +18,8 @@ app.get("/", (_req, res) => {
 });
 
 app.use("/", videos);
-// app.use("/", comments);
+app.use("/", comments);
+app.use("/", likes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
