@@ -19,9 +19,9 @@ app.get("/", (_req, res) => {
   res.status(200).send("WELCOME");
 });
 
-app.use("/", videos);
-app.use("/", comments);
-app.use("/", likes);
+app.use("/videos", videos);
+app.use("/comments", comments);
+app.use("/likes", likes);
 
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
