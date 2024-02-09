@@ -3,9 +3,9 @@ const app = express();
 const cors = require("cors");
 require("dotenv").config();
 
-const videos = require("../routes/videos");
-const comments = require("../routes/comments");
-const likes = require("../routes/likes");
+const videos = require("./videos");
+const comments = require("./comments");
+const likes = require("./likes");
 
 const { PORT } = process.env;
 
