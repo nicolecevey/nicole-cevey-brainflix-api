@@ -14,7 +14,7 @@ const getVideos = () => {
   return JSON.parse(fs.readFileSync(videosFilePath));
 };
 
-router.get("/videos", (_req, res) => {
+router.get("/", (_req, res) => {
   let videoDetails = getVideos();
   const videos = videoDetails.map((video) => {
     const videoDetailsCondensed = {
@@ -28,7 +28,7 @@ router.get("/videos", (_req, res) => {
   res.send(videos);
 });
 
-router.post("/videos", (req, res) => {
+router.post("/", (req, res) => {
   const { title, description, image } = req.body;
   let videoDetails = getVideos();
   const video = {
@@ -51,7 +51,7 @@ router.post("/videos", (req, res) => {
   return res.send(video);
 });
 
-router.get("/videos/:id", (req, res) => {
+router.get("/:id", (req, res) => {
   const requestedId = req.params.id;
   let videos = getVideos();
   const foundVideo = videos.find((video) => video.id === requestedId);
